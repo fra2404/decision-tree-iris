@@ -3,7 +3,7 @@
 **Course:** Artificial Intelligence  
 **Assignment:** 3 - Ensemble Learning  
 **Date:** October 2025  
-**Student:** Francesco  
+**Student:** Francesco
 
 ## Project Overview
 
@@ -12,6 +12,7 @@ This project implements various ensemble learning methods to solve classificatio
 ## Dataset
 
 **Iris Dataset** (from sklearn.datasets)
+
 - **Samples:** 150 instances
 - **Features:** 4 numerical features (sepal length, sepal width, petal length, petal width)
 - **Classes:** 3 species (setosa, versicolor, virginica)
@@ -20,14 +21,17 @@ This project implements various ensemble learning methods to solve classificatio
 ## Ensemble Methods Implemented
 
 1. **Voting Classifier**
+
    - Hard voting and soft voting
    - Combination of different base classifiers
 
 2. **Bagging**
+
    - Bootstrap aggregating with decision trees
    - Random subsampling techniques
 
 3. **Random Forest**
+
    - Advanced bagging with feature randomness
    - Out-of-bag error estimation
 
@@ -91,6 +95,7 @@ python src/main_iris_ensemble.py
 ## Academic Context
 
 This project demonstrates understanding of:
+
 - Ensemble learning principles and theory
 - Bias-variance trade-off in machine learning
 - Cross-validation and model evaluation
@@ -98,4 +103,5 @@ This project demonstrates understanding of:
 - Statistical significance testing
 
 ---
-*Built upon the modular architecture from Assignment 2 (ID3 Decision Trees)*
+
+_Built upon the modular architecture from Assignment 2 (ID3 Decision Trees)_

@@ -1,7 +1,0 @@
-IRIS DATASET ANALYSIS
-=========================
-
-Dataset shape: (150, 4)
-Features: ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
-Classes: ['setosa' 'versicolor' 'virginica']
-Class distribution: {0: 50, 1: 50, 2: 50}

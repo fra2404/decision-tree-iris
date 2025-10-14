@@ -43,7 +43,7 @@ class IrisEnsembleLearningApplication:
         """
         self.output_dir = output_dir
         self.random_state = random_state
-        self.timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.timestamp = datetime.now().strftime("%Y%m%d")
         
         # Create output directory
         os.makedirs(self.output_dir, exist_ok=True)
@@ -110,7 +110,7 @@ class IrisEnsembleLearningApplication:
         print("="*60)
         
         # Create all ensemble methods
-        ensemble_models = self.ensemble_core.create_all_ensembles()
+        ensemble_models = self.ensemble_core.create_essential_ensembles()
         
         print(f"✅ Created {len(ensemble_models)} ensemble models")
         

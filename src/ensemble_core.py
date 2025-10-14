@@ -419,27 +419,26 @@ class EnsembleLearningCore:
         
         return optimization_results
     
-    def create_all_ensembles(self) -> Dict[str, Any]:
+    def create_essential_ensembles(self) -> Dict[str, Any]:
         """
-        Create all ensemble methods in one call.
+        Create only the essential ensemble methods required by the assignment:
+        voting, bagging, stacking, and random forests.
         
         Returns:
-            Dictionary of all created ensemble models
+            Dictionary of essential ensemble models
         """
-        print("🎯 Creating all ensemble methods...")
+        print("🎯 Creating essential ensemble methods...")
         
         # Create base classifiers first
         self.create_base_classifiers()
         
-        # Create all ensemble types
-        self.create_voting_classifier('soft')
-        self.create_voting_classifier('hard')
-        self.create_bagging_classifier()
-        self.create_random_forest()
-        self.create_stacking_classifier()
-        self.create_boosting_classifiers()
+        # Create only the 4 essential ensemble types mentioned in assignment
+        self.create_voting_classifier('soft')  # Voting classifier
+        self.create_bagging_classifier()       # Bagging
+        self.create_random_forest()           # Random Forest
+        self.create_stacking_classifier()     # Stacking
         
-        print(f"✅ Created {len(self.ensemble_models)} ensemble models:")
+        print(f"✅ Created {len(self.ensemble_models)} essential ensemble models:")
         for name in self.ensemble_models.keys():
             print(f"   - {name}")
         
