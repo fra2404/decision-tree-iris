@@ -1,0 +1,127 @@
+IRIS ENSEMBLE LEARNING ANALYSIS REPORT
+==================================================
+
+Generated: 2025-10-14 22:46:18
+Random State: 42
+
+DATASET INFORMATION
+--------------------
+Training samples: 105
+Test samples: 45
+Features: 4
+Classes: 3
+
+PERFORMANCE RESULTS
+--------------------
+
+VOTING_SOFT:
+  train_accuracy: 0.9810
+  test_accuracy: 0.9111
+  cv_mean_accuracy: 0.9714
+  cv_std_accuracy: 0.0233
+  precision: 0.9155
+  recall: 0.9111
+  f1_score: 0.9107
+
+VOTING_HARD:
+  train_accuracy: 0.9810
+  test_accuracy: 0.9111
+  cv_mean_accuracy: 0.9714
+  cv_std_accuracy: 0.0233
+  precision: 0.9155
+  recall: 0.9111
+  f1_score: 0.9107
+
+BAGGING:
+  train_accuracy: 1.0000
+  test_accuracy: 0.9111
+  cv_mean_accuracy: 0.9524
+  cv_std_accuracy: 0.0301
+  precision: 0.9155
+  recall: 0.9111
+  f1_score: 0.9107
+  oob_score: 0.9524
+
+RANDOM_FOREST:
+  train_accuracy: 0.9810
+  test_accuracy: 0.8889
+  cv_mean_accuracy: 0.9524
+  cv_std_accuracy: 0.0301
+  precision: 0.8981
+  recall: 0.8889
+  f1_score: 0.8878
+  oob_score: 0.9524
+
+STACKING:
+  train_accuracy: 0.9714
+  test_accuracy: 0.9333
+  cv_mean_accuracy: 0.9714
+  cv_std_accuracy: 0.0233
+  precision: 0.9345
+  recall: 0.9333
+  f1_score: 0.9333
+
+ADABOOST:
+  train_accuracy: 1.0000
+  test_accuracy: 0.9333
+  cv_mean_accuracy: 0.9333
+  cv_std_accuracy: 0.0233
+  precision: 0.9345
+  recall: 0.9333
+  f1_score: 0.9333
+
+GRADIENT_BOOSTING:
+  train_accuracy: 1.0000
+  test_accuracy: 0.9333
+  cv_mean_accuracy: 0.9524
+  cv_std_accuracy: 0.0301
+  precision: 0.9444
+  recall: 0.9333
+  f1_score: 0.9327
+
+BEST PERFORMING METHOD: stacking
+Test Accuracy: 0.9333
+
+FEATURE IMPORTANCE
+--------------------
+
+voting_soft:
+  sepal length (cm): 0.0000
+  sepal width (cm): 0.0000
+  petal length (cm): 0.5482
+  petal width (cm): 0.4518
+
+voting_hard:
+  sepal length (cm): 0.0000
+  sepal width (cm): 0.0000
+  petal length (cm): 0.5482
+  petal width (cm): 0.4518
+
+random_forest:
+  sepal length (cm): 0.1205
+  sepal width (cm): 0.0144
+  petal length (cm): 0.4032
+  petal width (cm): 0.4620
+
+adaboost:
+  sepal length (cm): 0.0518
+  sepal width (cm): 0.1239
+  petal length (cm): 0.4230
+  petal width (cm): 0.4012
+
+gradient_boosting:
+  sepal length (cm): 0.0139
+  sepal width (cm): 0.0113
+  petal length (cm): 0.3111
+  petal width (cm): 0.6637
+
+HYPERPARAMETER OPTIMIZATION
+------------------------------
+
+random_forest:
+  Best parameters: {'max_depth': 5, 'min_samples_split': 2, 'n_estimators': 50}
+  Best CV score: 0.9524
+
+bagging:
+  Best parameters: {'max_features': 0.5, 'max_samples': 0.5, 'n_estimators': 200}
+  Best CV score: 0.9714
