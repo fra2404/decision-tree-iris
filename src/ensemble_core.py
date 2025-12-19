@@ -458,8 +458,8 @@ if __name__ == "__main__":
     # Create ensemble core
     ensemble_core = EnsembleLearningCore()
     
-    # Create all ensemble methods
-    ensembles = ensemble_core.create_all_ensembles()
+    # Create essential ensemble methods
+    ensembles = ensemble_core.create_essential_ensembles()
     
     # Evaluate performance
     results = ensemble_core.evaluate_ensemble_performance(
