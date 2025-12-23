@@ -1,151 +1,73 @@
-\documentclass[12pt]{article}
+
+\documentclass[conference]{IEEEtran}
+% Fix for UTF-8 encoding issues
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[english]{babel}
-\usepackage[margin=1in]{geometry}
-\usepackage{times}
-\usepackage{setspace}
+% Additional packages
 \usepackage{graphicx}
-\usepackage{xcolor}
 \usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsfonts}
-\usepackage{array}
-\usepackage{enumerate}
-\usepackage{listings}
-\usepackage{hyperref}
+\usepackage{url}
 \usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{subcaption}
+\definecolor{headergray}{gray}{0.6}
+\addtolength{\topmargin}{10pt}
 
-% Configure hyperref
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=cyan,
-    pdftitle={Iris Ensemble Learning Report},
-    pdfauthor={Francesco}
+% Title and author block
+\title{Iris Classification with Ensemble Learning: Modular Implementation and Analysis}
+\author{
+\IEEEauthorblockN{Francesco Albano}
+\IEEEauthorblockA{
+Student ID: LJ2506219\\
+School of Computer Science\\
+Beihang University (BUAA)\\
+Beijing, China\\
+Email: francescoalbano@buaa.edu.cn, francescoalbano357@gmail.com}
 }
-
-% Configure page headers
-\pagestyle{fancy}
-\fancyhf{}
-\rhead{Ensemble Learning Laboratory Report}
-\lhead{Francesco Albano}
-\cfoot{\thepage}
-
-% Configure code listings
-\lstset{
-    basicstyle=\ttfamily\small,
-    breaklines=true,
-    frame=single,
-    language=Python
-}
-
-\onehalfspacing
-
-\title{
-    \Large\textbf{Laboratory Report: Ensemble Learning Methods Applied to Iris Classification} \\
-    \vspace{0.5em}
-    \large Artificial Intelligence - Assignment 3 \\
-    \vspace{0.3em}
-    \normalsize October 2025
-}
-
-\author{Francesco Albano}
-\date{\today}
-
 \begin{document}
+
+\pagestyle{fancy}
+\fancyhead[C]{\textcolor{headergray}{Assignment 3 – Student ID: LJ2506219 – Artificial Intelligence}}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\thepage}
+\setlength{\footskip}{40pt}
 
 \maketitle
 
-\tableofcontents
-\newpage
+\begin{abstract}
+This report presents a modular implementation of ensemble learning methods for multi-class classification on the Iris dataset. The system achieves up to 93.33\% test accuracy. Bias-variance trade-off, feature importance, and method comparison are discussed, with results and code structure provided for reproducibility.
+\end{abstract}
 
-\section{Laboratory Objectives}
+\begin{IEEEkeywords}
+ensemble learning, iris dataset, classification, machine learning, data preprocessing, interpretability
+\end{IEEEkeywords}
 
-\subsection{Experiment Overview}
-This laboratory report documents the implementation and evaluation of multiple ensemble learning methods for classification on the Iris dataset. The experiment demonstrates how combining multiple weak learners creates more robust and accurate models compared to individual classifiers.
 
-\subsection{Learning Goals}
-This laboratory assignment focuses on:
-\begin{enumerate}
-    \item Implementing the four main ensemble learning algorithms
-    \item Comparing performance across different ensemble methods
-    \item Understanding the bias-variance trade-off
-    \item Applying proper evaluation metrics and cross-validation
-\end{enumerate}
+\section{Introduction}
+This project implements an Iris species classification system using multiple ensemble learning algorithms, following a modular and reproducible approach. The goal is to combine theoretical rigor with practical data science skills, focusing on modularity, accuracy, and interpretability. Ensemble methods are chosen for their ability to improve predictive performance and robustness by combining multiple base learners. The modular approach ensures that each phase of the workflow (preprocessing, learning, visualization) can be understood, tested, and improved separately.
 
-\subsection{Experimental Dataset}
-The experiment uses the classical Iris dataset for multi-class classification:
-\begin{itemize}
-    \item \textbf{Source:} R.A. Fisher (1936), UCI Machine Learning Repository
-    \item \textbf{Samples:} 150 instances with perfect class balance (50 per class)
-    \item \textbf{Features:} 4 numerical measurements (sepal length/width, petal length/width)
-    \item \textbf{Target:} 3 iris species (setosa, versicolor, virginica)
-    \item \textbf{Difficulty:} Moderate - some classes are linearly separable, others overlap
-\end{itemize}
+\section{System Architecture}
+The project is organized in four modules: (1) \textbf{data\_processor.py} for data loading and preprocessing, (2) \textbf{ensemble\_core.py} for ensemble algorithms and evaluation, (3) \textbf{visualization.py} for plots and exports, (4) \textbf{main\_iris\_ensemble.py} for pipeline orchestration. This modularity ensures clarity, reusability, and easy testing.
 
 \section{Methodology}
+\noindent
+	\textbf{Dataset:} Iris (150 samples, 4 features, 3 balanced classes).\\
+	\textbf{Preprocessing:} Stratified 70/30 split, standardization ($\mu=0$, $\sigma=1$), 5-fold cross-validation, mutual information for feature ranking.\\
+	\textbf{Ensemble Methods:} Soft voting (Decision Tree, SVM, Logistic Regression, Naive Bayes, k-NN), Bagging (Decision Trees), Random Forest (grid search), Stacking (meta-learner: Logistic Regression).\\
+All code is modular and reproducible.
 
-\subsection{System Architecture}
-The implementation follows a modular architecture with four main components:
 
-\begin{enumerate}
-    \item \textbf{Data Processor} (\texttt{data\_processor.py}): Handles data loading, preprocessing, and feature engineering
-    \item \textbf{Ensemble Core} (\texttt{ensemble\_core.py}): Implements all ensemble learning algorithms
-    \item \textbf{Visualization} (\texttt{visualization.py}): Creates comprehensive plots and analysis reports
-    \item \textbf{Main Application} (\texttt{main\_iris\_ensemble.py}): Orchestrates the complete analysis pipeline
-\end{enumerate}
 
-\subsection{Data Preprocessing}
-The preprocessing pipeline includes:
-\begin{itemize}
-    \item \textbf{Stratified Split:} 70\% training, 30\% testing to maintain class balance
-    \item \textbf{Feature Standardization:} StandardScaler normalization ($\mu=0$, $\sigma=1$)
-    \item \textbf{Cross-Validation:} 5-fold stratified CV for robust evaluation
-    \item \textbf{Feature Analysis:} Mutual information for importance ranking
-\end{itemize}
 
-\subsection{Ensemble Methods Implemented}
+\section{Results and Analysis}
 
-\subsubsection{Voting Classifiers}
-\begin{itemize}
-    \item \textbf{Soft Voting:} Weighted average of predicted probabilities from base classifiers
-    \item \textbf{Base Classifiers:} Decision Tree, SVM, Logistic Regression, Naive Bayes, k-NN
-\end{itemize}
 
-\subsubsection{Bagging (Bootstrap Aggregating)}
-\begin{itemize}
-    \item \textbf{Algorithm:} Bootstrap sampling with aggregation
-    \item \textbf{Base Estimator:} Decision Trees
-    \item \textbf{Estimators:} 100 trees with out-of-bag scoring
-\end{itemize}
-
-\subsubsection{Random Forest}
-\begin{itemize}
-    \item \textbf{Enhancement:} Bagging + feature randomness
-    \item \textbf{Configuration:} 100 trees, $\sqrt{p}$ features per split
-    \item \textbf{Optimization:} Grid search for optimal parameters
-\end{itemize}
-
-\subsubsection{Stacking}
-\begin{itemize}
-    \item \textbf{Level 0:} Decision Tree, SVM, Naive Bayes, k-NN
-    \item \textbf{Meta-learner:} Logistic Regression
-    \item \textbf{Cross-validation:} 5-fold for meta-feature generation
-\end{itemize}
-
-\section{Experimental Results and Analysis}
-
-\subsection{Dataset Characteristics}
-The initial data exploration reveals the fundamental characteristics of the Iris dataset that influence ensemble performance.
-
-\begin{figure}[h]
+\begin{figure*}[t]
 \centering
-\includegraphics[width=0.95\textwidth]{../results/iris_dataset_overview.png}
-\caption{Comprehensive Iris Dataset Analysis: (Top-left) Pairwise feature scatter plots colored by species showing clear separability of setosa from the other two classes. (Top-right) Feature distribution histograms revealing the statistical properties of each measurement. (Bottom-left) Correlation heatmap indicating strong positive correlation between petal measurements. (Bottom-right) Class distribution confirming perfect balance across all three species.}
+\includegraphics[width=\textwidth]{../results/iris_dataset_overview.png}
+\caption{Overview of the main statistical and visual analyses performed on the Iris dataset. (Top-left) Sepal length vs sepal width scatter plot highlights the relationship between two key features. (Top-center) Feature distribution histograms show the statistical properties of each measurement. (Top-right) Feature correlation matrix quantifies linear relationships among features. (Bottom-left) Feature distribution by species reveals class-specific patterns. (Bottom-center) PCA visualization illustrates class separability in reduced dimensions. (Bottom-right) Class distribution confirms perfect balance across all three species.}
 \label{fig:dataset_overview}
-\end{figure}
+\end{figure*}
 
 \textbf{Key Observations from Figure \ref{fig:dataset_overview}:}
 \begin{itemize}
@@ -155,15 +77,13 @@ The initial data exploration reveals the fundamental characteristics of the Iris
     \item \textbf{Perfect Balance:} Equal representation (50 samples) for each class
 \end{itemize}
 
-\subsection{Performance Comparison}
-The comprehensive evaluation across seven ensemble methods demonstrates varying effectiveness for the classification task.
 
-\begin{figure}[h]
+\begin{figure*}[t]
 \centering
-\includegraphics[width=0.95\textwidth]{../results/ensemble_performance_comparison.png}
-\caption{Ensemble Methods Performance Analysis: (Top-left) Cross-validation accuracy distribution showing method reliability. (Top-right) Test accuracy ranking with confidence intervals. (Bottom-left) Training vs. test accuracy revealing potential overfitting. (Bottom-right) Comprehensive performance ranking by test accuracy.}
+\includegraphics[width=\textwidth]{../results/ensemble_performance_comparison.png}
+\caption{Ensemble Methods Performance Analysis. (Top-left) Training vs. testing accuracy for each method, highlighting possible overfitting or generalization gaps. (Top-right) Cross-validation performance distribution, showing the stability and variance of each method across folds. (Bottom-left) Multi-metric performance comparison (accuracy, precision, recall, F1-score) for a holistic evaluation. (Bottom-right) Overall performance ranking, summarizing the relative effectiveness of all ensemble methods.}
 \label{fig:performance_comparison}
-\end{figure}
+\end{figure*}
 
 \textbf{Performance Analysis from Figure \ref{fig:performance_comparison}:}
 \begin{itemize}
@@ -173,15 +93,13 @@ The comprehensive evaluation across seven ensemble methods demonstrates varying 
     \item \textbf{Ensemble Benefit:} All ensemble methods outperform typical single classifier baselines
 \end{itemize}
 
-\subsection{Feature Importance Analysis}
-Understanding which features contribute most to classification success guides feature engineering decisions.
 
-\begin{figure}[h]
+\begin{figure*}[t]
 \centering
-\includegraphics[width=0.95\textwidth]{../results/feature_importance_analysis.png}
-\caption{Feature Importance Analysis: (Left) Mutual information scores showing the discriminative power of each feature for classification. (Right) Random Forest feature importance providing ensemble-based feature ranking. Both methods consistently identify petal measurements as the most informative features.}
+\includegraphics[width=\textwidth]{../results/feature_importance_analysis.png}
+\caption{Feature Importance Analysis. (Left) Feature importance heatmap summarizing the discriminative power of each feature. (Right) Feature importance by method, comparing the rankings provided by different ensemble algorithms. Both views consistently identify petal measurements as the most informative features.}
 \label{fig:feature_importance}
-\end{figure}
+\end{figure*}
 
 \textbf{Feature Insights from Figure \ref{fig:feature_importance}:}
 \begin{itemize}
@@ -191,15 +109,13 @@ Understanding which features contribute most to classification success guides fe
     \item \textbf{Biological Relevance:} Petal characteristics are indeed key species identifiers
 \end{itemize}
 
-\subsection{Confusion Matrix Analysis}
-Detailed error analysis reveals specific classification challenges across species pairs.
 
-\begin{figure}[h]
+\begin{figure*}[t]
 \centering
-\includegraphics[width=0.95\textwidth]{../results/confusion_matrices.png}
+\includegraphics[width=\textwidth]{../results/confusion_matrices.png}
 \caption{Confusion Matrices for Top Performing Methods: Normalized confusion matrices showing prediction accuracy for each class. Perfect diagonal values indicate correct classifications, while off-diagonal values reveal inter-class confusion patterns. All top methods achieve near-perfect classification with minimal confusion between versicolor and virginica.}
 \label{fig:confusion_matrices}
-\end{figure}
+\end{figure*}
 
 \textbf{Classification Pattern Analysis from Figure \ref{fig:confusion_matrices}:}
 \begin{itemize}
@@ -210,7 +126,8 @@ Detailed error analysis reveals specific classification challenges across specie
 \end{itemize}
 
 \subsection{Quantitative Performance Summary}
-The comprehensive evaluation reveals the following performance ranking:
+
+The comprehensive evaluation reveals the following performance ranking, summarized in Table~\ref{tab:ensemble_performance}:
 
 \begin{table}[h]
 \centering
@@ -225,6 +142,7 @@ Random Forest & 0.8889 & 0.9524±0.0301 & 0.8878 \\
 \hline
 \end{tabular}
 \caption{Essential Ensemble Methods Performance Comparison}
+\label{tab:ensemble_performance}
 \end{table}
 
 \subsection{Key Findings}
@@ -260,7 +178,7 @@ Grid search optimization improved two key methods:
 The results demonstrate:
 \begin{itemize}
     \item \textbf{Low Variance:} CV standard deviations $\leq$ 0.03 indicate stable performance
-    \item \textbf{High Precision:} All methods achieve precision > 0.89
+    \item \textbf{High Precision:} All methods achieve precision $\geq$ 0.89
     \item \textbf{Balanced Performance:} F1-scores closely match accuracy values
     \item \textbf{Class Balance:} Perfect stratification maintained across all splits
 \end{itemize}
@@ -322,53 +240,11 @@ The achieved accuracy of 93.33\% aligns with literature expectations for the Iri
     \item Perfect classification is rare due to natural class overlap
 \end{itemize}
 
-\section{Laboratory Conclusions}
 
-\subsection{Experimental Achievements}
-This laboratory successfully demonstrated the principles and applications of ensemble learning:
-\begin{enumerate}
-    \item \textbf{Method Implementation:} Seven distinct ensemble methods implemented and evaluated
-    \item \textbf{Performance Excellence:} Achieved 93.33\% test accuracy with multiple methods
-    \item \textbf{Statistical Rigor:} Robust evaluation using stratified cross-validation
-    \item \textbf{Practical Skills:} Hands-on experience with scikit-learn ensemble implementations
-\end{enumerate}
+\section{Conclusions}
+This work demonstrates that ensemble learning, when applied with a modular and reproducible approach, can achieve excellent results even on classic datasets like Iris. The pipeline is clear, extensible, and well documented. The results confirm that model diversity and proper validation lead to robust and interpretable performance. The code and structure are designed to be easily reused and adapted to new problems.
 
-\subsection{Key Learning Outcomes}
-The experimental results validate several important ensemble learning principles:
-\begin{itemize}
-    \item \textbf{Diversity Benefits:} Different base classifiers capture complementary decision patterns
-    \item \textbf{Meta-Learning Effectiveness:} Stacking's meta-learner successfully combines base predictions
-    \item \textbf{Sequential Improvement:} Boosting methods excel through iterative error correction
-    \item \textbf{Feature Synergy:} Ensemble methods effectively utilize correlated features
-\end{itemize}
-
-\subsection{Methodological Insights}
-The Iris dataset characteristics provide insights into ensemble method selection:
-\begin{itemize}
-    \item \textbf{Data Size Impact:} Limited training data (105 samples) favors simpler ensemble approaches
-    \item \textbf{Feature Quality:} High-quality features (petal measurements) enable strong base performance
-    \item \textbf{Class Structure:} Perfect balance simplifies ensemble training and evaluation
-    \item \textbf{Complexity Trade-off:} Simple ensembles perform competitively with advanced methods
-\end{itemize}
-
-\subsection{Technical Implementation Notes}
-The modular implementation demonstrates software engineering best practices:
-\begin{itemize}
-    \item \textbf{Reproducibility:} Fixed random seeds ensure consistent experimental results
-    \item \textbf{Modularity:} Clean separation enables easy method addition and modification
-    \item \textbf{Documentation:} Comprehensive logging facilitates result interpretation
-    \item \textbf{Visualization:} Automated plot generation supports experimental analysis
-\end{itemize}
-
-\subsection{Laboratory Assessment}
-This experiment successfully meets the assignment requirements:
-\begin{enumerate}
-    \item \textbf{Algorithm Implementation:} Multiple ensemble methods properly implemented
-    \item \textbf{Feature Engineering:} Standardization and importance analysis completed
-    \item \textbf{Experimental Design:} Proper train/test splits and cross-validation applied
-    \item \textbf{Results Documentation:} Comprehensive analysis with statistical validation
-\end{enumerate}
-
-This laboratory demonstrates that ensemble learning provides both theoretical understanding and practical skills essential for modern machine learning applications.
+\section*{Acknowledgment}
+This report was prepared as Assignment 3 for the course ``Artificial Intelligence'' at Beihang University (BUAA).
 
 \end{document}
